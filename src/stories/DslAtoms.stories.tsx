@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { DslExamplesPage, atomicExamples } from "./dsl-examples-shared";
 
 const meta = {
-  title: "Runtime/DSL Examples/Atoms",
+  title: "DSL/Atoms",
   tags: ["autodocs"],
   parameters: {
     docs: {

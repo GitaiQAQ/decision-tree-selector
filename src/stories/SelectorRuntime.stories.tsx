@@ -20,7 +20,13 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { JsonDebugCard, SelectorStoryScene, StoryIntroCard, StorySceneGrid, StoryTreeCard } from "./storybook-utils";
+import {
+  JsonDebugCard,
+  SelectorStoryScene,
+  StoryIntroCard,
+  StorySceneGrid,
+  StoryTreeCard,
+} from "./storybook-utils";
 import { applyTreeVisuals } from "./tree-visuals";
 
 const ecommerceTree = (() => {
@@ -352,7 +358,7 @@ function ControlledPermissionsStory() {
 }
 
 const meta = {
-  title: "Runtime/SelectorTree",
+  title: "Runtime/Real-World Trees",
   tags: ["autodocs"],
   parameters: {
     docs: {

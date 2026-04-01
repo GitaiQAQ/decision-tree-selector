@@ -1,0 +1,81 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Overview" />
+
+# decision-tree-selector
+
+Storybook entry page for the tree-based selector runtime.
+
+- **Hosted Storybook:** https://gitaiqaq.github.io/decision-tree-selector/
+- **Repository:** https://github.com/GitaiQAQ/decision-tree-selector
+
+`decision-tree-selector` is a React runtime for tree-based selection flows. It is built for interfaces where one choice changes which branches are visible, disabled, or selected by default.
+
+Use this page as the reading order for the docs site: start with runtime behavior, then drill into DSL authoring, then inspect plugin-specific behavior.
+
+## What it gives you
+
+- a DSL for describing selector trees
+- runtime bootstrap and default-selection behavior
+- React providers and hooks for selection state
+- a minimal built-in renderer surface
+- debug snapshots for understanding runtime output
+
+## Recommended reading order
+
+1. **[Runtime/Real-World Trees](?path=/story/runtime-real-world-trees--ecommerce-catalog-tree)** — start here for the two main end-to-end trees: catalog and permission policy flows.
+2. **[Runtime/Node State Behaviors](?path=/story/runtime-node-state-behaviors--node-states)** — learn how disabled, hidden, forbidden, and async predicate states affect rendering.
+3. **[DSL/Atoms](?path=/story/dsl-atoms--showcase)** — concrete live demos for every exported DSL helper.
+4. **[DSL/Composition](?path=/story/dsl-composition--showcase)** — realistic selector flows built from those DSL atoms.
+5. **[Plugins/Switchable](?path=/story/plugins-switchable--switchable-from-deep-node)** — review plugin-triggered runtime switching after the base tree model is clear.
+
+This order moves from whole-product behavior to focused APIs and then to advanced capabilities.
+
+## 3-minute quick start
+
+1. Open **[Runtime/Real-World Trees](?path=/story/runtime-real-world-trees--ecommerce-catalog-tree)** to see the baseline end-to-end runtime behavior.
+2. Open **[Runtime/Node State Behaviors](?path=/story/runtime-node-state-behaviors--node-states)** to understand hidden, disabled, forbidden, and async state handling.
+3. Open **[DSL/Atoms](?path=/story/dsl-atoms--showcase)** to map each exported DSL helper to a concrete live example.
+4. Open **[Plugins/Switchable](?path=/story/plugins-switchable--switchable-from-deep-node)** when you want runtime branch switching beyond plain selection.
+
+## Choose by role
+
+### I am new to the project
+
+Start with **[Runtime/Real-World Trees](?path=/story/runtime-real-world-trees--ecommerce-catalog-tree)**, then **[Runtime/Node State Behaviors](?path=/story/runtime-node-state-behaviors--node-states)**.
+
+### I want to learn the DSL surface
+
+Read **[DSL/Atoms](?path=/story/dsl-atoms--showcase)** first, then **[DSL/Composition](?path=/story/dsl-composition--showcase)**.
+
+### I want advanced runtime behavior
+
+Go to **[Plugins/Switchable](?path=/story/plugins-switchable--switchable-from-deep-node)** after the base runtime model is clear.
+
+## API layers
+
+The public surface is easiest to learn from top to bottom rather than alphabetically from the export list.
+
+### Layer 1 — default entry point
+
+Use `dsl`, `SelectorProvider`, and `SelectorTree` for most integrations. This is the main path demonstrated in **[Runtime/Real-World Trees](?path=/story/runtime-real-world-trees--ecommerce-catalog-tree)**.
+
+### Layer 2 — app integration and customization
+
+Add hooks such as `useSelectable`, `useNode`, `useCurrentRadio`, and renderer customization when your app needs controlled state, custom visuals, or richer interactions.
+
+### Layer 3 — advanced runtime behavior
+
+Reach for plugin helpers, `useSwitchable`, bootstrap helpers, and debug/tracking APIs when you need branch switching, policy-driven defaults, runtime snapshots, or low-level introspection.
+
+## Where to use which entry point
+
+- **Storybook** — best for learning the API surface and comparing runtime behaviors side by side.
+- **Demo app** — best for a single bundled flow and raw runtime snapshot inspection.
+- **GitHub Pages Storybook build** — best for sharing a static docs site once the Pages workflow is enabled in the repository.
+
+## Current repository status
+
+This Storybook reflects the repository as it exists today: an early open-source library with typed runtime APIs, realistic demo trees, proper tree-line visuals (indent, connectors, expand/collapse), and customization examples including disabled, hidden, forbidden, and async predicate demos.
+
+The docs structure is now split so DSL atoms and DSL compositions live as a first-class DSL section instead of being mixed into runtime pages.
