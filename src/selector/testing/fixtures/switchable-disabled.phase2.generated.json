@@ -1,0 +1,42 @@
+[
+  {
+    "caseId": "phase2.switchable.disabled.inventory-false-policy-false",
+    "ruleId": "switchable-disabled",
+    "flags": {
+      "isInventoryBlocked": false,
+      "isPolicyBlocked": false
+    },
+    "constraints": ["target=Express"],
+    "expectedDecision": false
+  },
+  {
+    "caseId": "phase2.switchable.disabled.inventory-true-policy-false",
+    "ruleId": "switchable-disabled",
+    "flags": {
+      "isInventoryBlocked": true,
+      "isPolicyBlocked": false
+    },
+    "constraints": ["target=Express"],
+    "expectedDecision": true
+  },
+  {
+    "caseId": "phase2.switchable.disabled.inventory-false-policy-true",
+    "ruleId": "switchable-disabled",
+    "flags": {
+      "isInventoryBlocked": false,
+      "isPolicyBlocked": true
+    },
+    "constraints": ["target=Express"],
+    "expectedDecision": true
+  },
+  {
+    "caseId": "phase2.switchable.disabled.inventory-true-policy-true",
+    "ruleId": "switchable-disabled",
+    "flags": {
+      "isInventoryBlocked": true,
+      "isPolicyBlocked": true
+    },
+    "constraints": ["target=Express"],
+    "expectedDecision": true
+  }
+]

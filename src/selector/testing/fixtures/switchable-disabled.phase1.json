@@ -1,0 +1,11 @@
+[
+  {
+    "caseId": "switchable.disabled.inventory-blocked",
+    "flags": {
+      "isInventoryBlocked": true,
+      "isPolicyBlocked": false
+    },
+    "constraints": ["target=Express"],
+    "expectedDisabled": true
+  }
+]

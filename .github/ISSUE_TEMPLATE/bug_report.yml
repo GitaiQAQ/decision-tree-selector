@@ -1,0 +1,47 @@
+name: Bug report
+description: Report a reproducible problem in the library or demo.
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for filing a bug. Please provide a minimal reproduction when possible.
+  - type: textarea
+    id: summary
+    attributes:
+      label: What happened?
+      description: Describe the observed behavior.
+      placeholder: The selector renders the wrong default branch when...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect to happen?
+      placeholder: I expected the first selectable leaf to be chosen...
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: Share reproduction steps and, ideally, a minimal tree or DSL snippet.
+      placeholder: |
+        1. Create a tree with...
+        2. Render <SelectorProvider tree={tree}>...
+        3. Click...
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Include package version, React version, browser, and any other relevant details.
+      placeholder: reactive-selector 0.1.0, React 18, Chrome 123, macOS...
+  - type: textarea
+    id: notes
+    attributes:
+      label: Additional context
+      description: Add logs, screenshots, snapshots, or links here.

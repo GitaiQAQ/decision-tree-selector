@@ -1,0 +1,7 @@
+{
+  "decisionId": "switchable-disabled",
+  "conditions": [
+    { "id": "c_inventory", "flag": "isInventoryBlocked" },
+    { "id": "c_policy", "flag": "isPolicyBlocked" }
+  ]
+}

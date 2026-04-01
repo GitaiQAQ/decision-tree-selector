@@ -1,0 +1,35 @@
+name: Feature request
+description: Suggest an improvement to the public API, runtime behavior, or demo.
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting an improvement. Please focus on the user problem first, then the API or implementation idea.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem are you trying to solve?
+      placeholder: It is hard to customize branch rendering when...
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      placeholder: Add a hook / prop / renderer extension that...
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      placeholder: I considered composing it with existing hooks, but...
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope notes
+      description: Call out whether this is generic runtime behavior or product-specific logic.
+      placeholder: This stays generic because...

@@ -1,0 +1,42 @@
+[
+  {
+    "caseId": "phase2.mutex.disabled.prev-visible-false-current-selected-false",
+    "ruleId": "child-visibility-mutex-disabled",
+    "flags": {
+      "isPreviousSiblingVisible": false,
+      "isCurrentSelected": false
+    },
+    "constraints": ["group=mutex"],
+    "expectedDecision": false
+  },
+  {
+    "caseId": "phase2.mutex.disabled.prev-visible-true-current-selected-false",
+    "ruleId": "child-visibility-mutex-disabled",
+    "flags": {
+      "isPreviousSiblingVisible": true,
+      "isCurrentSelected": false
+    },
+    "constraints": ["group=mutex"],
+    "expectedDecision": true
+  },
+  {
+    "caseId": "phase2.mutex.disabled.prev-visible-false-current-selected-true",
+    "ruleId": "child-visibility-mutex-disabled",
+    "flags": {
+      "isPreviousSiblingVisible": false,
+      "isCurrentSelected": true
+    },
+    "constraints": ["group=mutex"],
+    "expectedDecision": false
+  },
+  {
+    "caseId": "phase2.mutex.disabled.prev-visible-true-current-selected-true",
+    "ruleId": "child-visibility-mutex-disabled",
+    "flags": {
+      "isPreviousSiblingVisible": true,
+      "isCurrentSelected": true
+    },
+    "constraints": ["group=mutex"],
+    "expectedDecision": false
+  }
+]

@@ -1,0 +1,20 @@
+export const storyMapping: Record<string, string> = {
+  "switchable.disabled.inventory-blocked":
+    "plugins-switchable--switchable-from-deep-node",
+  "phase2.switchable.disabled.inventory-false-policy-false":
+    "plugins-switchable--switchable-from-deep-node",
+  "phase2.switchable.disabled.inventory-true-policy-false":
+    "plugins-switchable--switchable-from-deep-node",
+  "phase2.switchable.disabled.inventory-false-policy-true":
+    "plugins-switchable--switchable-from-deep-node",
+  "phase2.switchable.disabled.inventory-true-policy-true":
+    "plugins-switchable--switchable-from-deep-node",
+  "phase2.mutex.disabled.prev-visible-false-current-selected-false":
+    "plugins-switchable--switchable-from-deep-node",
+  "phase2.mutex.disabled.prev-visible-true-current-selected-false":
+    "plugins-switchable--switchable-from-deep-node",
+  "phase2.mutex.disabled.prev-visible-false-current-selected-true":
+    "plugins-switchable--switchable-from-deep-node",
+  "phase2.mutex.disabled.prev-visible-true-current-selected-true":
+    "plugins-switchable--switchable-from-deep-node",
+};

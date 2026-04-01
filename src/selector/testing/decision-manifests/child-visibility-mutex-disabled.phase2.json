@@ -1,0 +1,7 @@
+{
+  "decisionId": "child-visibility-mutex-disabled",
+  "conditions": [
+    { "id": "c_prev_visible", "flag": "isPreviousSiblingVisible" },
+    { "id": "c_current_selected", "flag": "isCurrentSelected" }
+  ]
+}

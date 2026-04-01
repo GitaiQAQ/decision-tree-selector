@@ -1,0 +1,12 @@
+[
+  {
+    "conditionId": "c_policy",
+    "reason": "constraint_exclusion",
+    "owner": "decision-tree-selector-codeowner"
+  },
+  {
+    "conditionId": "c_current_selected",
+    "reason": "domain_invariant",
+    "owner": "decision-tree-selector-codeowner"
+  }
+]

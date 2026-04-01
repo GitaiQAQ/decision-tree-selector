@@ -1,0 +1,193 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --radius-lg: var(--radius);
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --border: oklch(0.922 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --border: oklch(1 0 0 / 10%);
+}
+
+@layer base {
+  * {
+    @apply box-border border-border;
+  }
+
+  body {
+    @apply m-0 bg-background text-foreground;
+    font-family:
+      Inter,
+      ui-sans-serif,
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      sans-serif;
+  }
+
+  #root {
+    @apply min-h-screen;
+  }
+}
+
+@layer components {
+  .app-shell {
+    @apply grid min-h-screen gap-6 p-8;
+  }
+
+  .app-header {
+    @apply grid gap-2;
+  }
+
+  .app-grid {
+    @apply grid items-start gap-6 lg:grid-cols-[minmax(320px,420px)_minmax(280px,1fr)];
+  }
+
+  .panel {
+    @apply rounded-2xl border border-border bg-card p-5 text-card-foreground shadow-sm;
+  }
+
+  .pill {
+    @apply inline-flex w-fit items-center rounded-full bg-muted px-2 py-1 text-xs font-semibold text-muted-foreground;
+  }
+
+  .code-block {
+    @apply max-h-80 overflow-auto rounded-md border bg-muted p-3 text-xs;
+  }
+
+  .tree-wrapper,
+  .tree-group {
+    @apply grid gap-3;
+  }
+
+  .tree-group {
+    @apply m-0 list-none p-0;
+  }
+
+  .tree-node {
+    @apply rounded-xl border border-border bg-card p-3;
+  }
+
+  .tree-node.is-selected {
+    @apply border-primary ring-2 ring-primary/20;
+  }
+
+  .tree-node.is-disabled {
+    @apply opacity-50;
+  }
+
+  .tree-node.is-hidden {
+    @apply hidden;
+  }
+
+  .tree-node-button {
+    @apply grid w-full gap-1 text-left;
+  }
+
+  .tree-label {
+    @apply text-sm font-semibold;
+  }
+
+  .tree-description {
+    @apply text-xs text-muted-foreground;
+  }
+
+  /* Tree item row: label + expand toggle */
+  .tree-node-visual-row {
+    @apply relative flex items-center gap-2;
+  }
+
+  .tree-summary {
+    @apply list-none cursor-pointer;
+  }
+
+  .tree-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .tree-summary::marker {
+    content: "";
+  }
+
+  .tree-summary-indicator,
+  .tree-summary-spacer {
+    @apply inline-flex h-5 w-5 shrink-0 items-center justify-center rounded border border-border bg-background text-xs text-muted-foreground shadow-sm;
+  }
+
+  .tree-summary-indicator::before {
+    content: "▸";
+  }
+
+  .tree-details[open] > .tree-summary .tree-summary-indicator {
+    @apply bg-muted text-foreground;
+  }
+
+  .tree-details[open] > .tree-summary .tree-summary-indicator::before {
+    content: "▾";
+  }
+
+  .tree-summary-spacer {
+    @apply border-transparent bg-transparent shadow-none;
+  }
+
+  /* Connector line from parent */
+  .tree-wrapper:not(.tree-details)[data-tree-level="1"] > .tree-node-visual-row::before,
+  .tree-wrapper:not(.tree-details)[data-tree-level="2"] > .tree-node-visual-row::before,
+  .tree-wrapper:not(.tree-details)[data-tree-level="3"] > .tree-node-visual-row::before,
+  .tree-wrapper:not(.tree-details)[data-tree-level="4"] > .tree-node-visual-row::before,
+  .tree-wrapper:not(.tree-details)[data-tree-level="5"] > .tree-node-visual-row::before {
+    content: "";
+    @apply absolute -left-3 top-1/2 h-full w-px -translate-y-1/2 border-l border-border;
+  }
+
+  /* Last child: L-shaped connector (stops at bottom) */
+  .tree-wrapper[data-tree-level="1"].is-last-child > .tree-node-visual-row::before,
+  .tree-wrapper[data-tree-level="2"].is-last-child > .tree-node-visual-row::before,
+  .tree-wrapper[data-tree-level="3"].is-last-child > .tree-node-visual-row::before,
+  .tree-wrapper[data-tree-level="4"].is-last-child > .tree-node-visual-row::before,
+  .tree-wrapper[data-tree-level="5"].is-last-child > .tree-node-visual-row::before {
+    @apply h-1/2 border-b border-l border-border border-b-transparent;
+  }
+
+  /* Children container with top connector from parent */
+  .tree-children-visual {
+    @apply relative ml-5;
+  }
+
+  .tree-children-visual::before {
+    content: "";
+    @apply absolute -left-3 bottom-0 w-px border-l border-border;
+    top: -0.75rem;
+  }
+}
