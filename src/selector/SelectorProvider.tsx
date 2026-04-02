@@ -9,17 +9,20 @@ import {
   resolveValueFromMaybeDynamicFunctionOrPromise,
 } from "./runtime-helpers";
 import type {
+  Plugin,
   RuntimeRootState,
   SelectorProviderProps,
   SelectorSymbol,
 } from "./types";
+
+const EMPTY_MODIFIERS: Plugin[] = [];
 
 export function SelectorProvider({
   tree,
   value,
   defaultValue,
   onValueChange,
-  modifiers = [],
+  modifiers = EMPTY_MODIFIERS,
   autoSelectDefault = true,
   children,
 }: SelectorProviderProps) {

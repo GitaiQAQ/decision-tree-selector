@@ -7,6 +7,8 @@ import {
   isContainerNode,
 } from "../runtime-helpers";
 
+const APPLIED_KEY = "__childVisibilityMutex__";
+
 async function isSiblingDisplayable(
   node: RuntimeNode,
   ctx: PluginContext,
@@ -41,6 +43,11 @@ async function isSiblingDisplayable(
 }
 
 export function childVisibilityMutex(ctx: PluginContext) {
+  if (ctx.node.props[APPLIED_KEY]) {
+    return;
+  }
+  ctx.node.props[APPLIED_KEY] = true;
+
   const children = getDirectChildrenExcludingPortalMarks(ctx.node);
   const getActiveSelectedSiblingIndex = () =>
     children.findIndex((child) =>
