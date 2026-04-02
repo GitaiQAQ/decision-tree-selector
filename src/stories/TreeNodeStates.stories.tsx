@@ -277,7 +277,7 @@ function TreeVisualStory({
 }
 
 const meta = {
-  title: "Runtime/TreeNodeStates",
+  title: "Runtime/Node State Behaviors",
   tags: ["autodocs"],
   parameters: {
     docs: {

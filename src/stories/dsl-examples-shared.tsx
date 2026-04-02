@@ -14,7 +14,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { JsonDebugCard, StoryIntroCard, StorySceneGrid, StoryTreeCard } from "./storybook-utils";
+import {
+  JsonDebugCard,
+  StoryIntroCard,
+  StorySceneGrid,
+  StoryTreeCard,
+} from "./storybook-utils";
 import { applyTreeVisuals } from "./tree-visuals";
 
 type DslExample = {

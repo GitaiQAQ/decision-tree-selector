@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { DslExamplesPage, compositionExamples } from "./dsl-examples-shared";
 
 const meta = {
-  title: "Runtime/DSL Examples/Composition",
+  title: "DSL/Composition",
   tags: ["autodocs"],
   parameters: {
     docs: {

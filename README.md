@@ -7,7 +7,7 @@
 ![Storybook](https://img.shields.io/badge/Storybook-docs%20included-FF4785?logo=storybook&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-yellow.svg)
 
-[Documentation site](#documentation-site) · [Quick start](#quick-start) · [Example API](#example-api-usage) · [Contributing](./CONTRIBUTING.md) · [Security](./SECURITY.md) · [Issues](https://github.com/GitaiQAQ/decision-tree-selector/issues)
+[Live Storybook](https://gitaiqaq.github.io/decision-tree-selector/) · [Documentation site](#documentation-site) · [Quick start](#quick-start) · [Example API](#example-api-usage) · [Contributing](./CONTRIBUTING.md) · [Security](./SECURITY.md) · [Issues](https://github.com/GitaiQAQ/decision-tree-selector/issues)
 
 It is currently an early `0.x` open-source cut focused on the selector core rather than product-specific integrations.
 
@@ -63,6 +63,9 @@ This repository is under active extraction and cleanup.
 
 This repository includes a Storybook-powered docs site for interactive examples.
 
+- Hosted Storybook: https://gitaiqaq.github.io/decision-tree-selector/
+- Repository: https://github.com/GitaiQAQ/decision-tree-selector
+
 ### Choose your entry point
 
 - **Use the demo app** when you want to inspect the current bundled example end-to-end.
@@ -86,13 +89,22 @@ The included Pages workflow sets this automatically to `/<repo-name>/`.
 
 The Storybook coverage currently includes:
 
-- `Runtime/DSL Examples/Atoms` for every exported DSL helper
-- `Runtime/DSL Examples/Composition` for realistic composition cases built from those helpers
+- `DSL/Atoms` for every exported DSL helper
+- `DSL/Composition` for realistic composition cases built from those helpers
 - integrated runtime flows with `SelectorProvider` + `SelectorTree`
 - default-selection behavior
 - mutex and hidden-panel behavior
 - controlled provider usage
 - custom renderer override examples
+
+Recommended Storybook learning path:
+
+1. `Overview`
+2. `Runtime/Real-World Trees`
+3. `Runtime/Node State Behaviors`
+4. `DSL/Atoms`
+5. `DSL/Composition`
+6. `Plugins/Switchable`
 
 ## Quick start
 
@@ -105,7 +117,7 @@ pnpm install
 - Demo app: `npm run dev`
 - Storybook docs site: `npm run storybook`
 
-If you are trying to understand the public API for the first time, Storybook is the better starting point.
+If you are trying to understand the public API for the first time, Storybook is the better starting point. The `Overview` page mirrors this reading order and links directly to the main runtime stories.
 
 ## Local development
 
@@ -143,7 +155,7 @@ If you need to test the Pages asset path locally, build Storybook with a custom
 base path:
 
 ```bash
-STORYBOOK_BASE_PATH=/selector-runtime/ npm run build-storybook
+STORYBOOK_BASE_PATH=/decision-tree-selector/ npm run build-storybook
 ```
 
 ## Example API usage
