@@ -21,6 +21,8 @@ import { applyTreeVisuals, applyTreeVisualsList } from "./tree-visuals";
 
 const disabledPredicate: Predicate = () => true;
 const forbiddenPredicate: Predicate = () => true;
+const PREDICATE_RESOLVE_DELAY_MS = 1200;
+const AUTHORIZATION_DELAY_MS = 800;
 
 const disabledHiddenForbiddenTree = applyTreeVisuals(dsl.group(
   { renderLabel: "Node states demo" },
@@ -121,7 +123,7 @@ function AsyncResolveStory() {
       setTimeout(() => {
         resolve(false);
         setLastResolved(new Date().toLocaleTimeString());
-      }, 1200);
+      }, PREDICATE_RESOLVE_DELAY_MS);
     });
   };
 
@@ -130,7 +132,7 @@ function AsyncResolveStory() {
     setTimeout(() => {
       setAuthorized(true);
       setLoading(false);
-    }, 800);
+    }, AUTHORIZATION_DELAY_MS);
   }, []);
 
   return (

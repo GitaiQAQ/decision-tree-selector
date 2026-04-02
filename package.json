@@ -20,7 +20,7 @@
     "LICENSE"
   ],
   "scripts": {
-    "dev": "vite",
+    "dev": "npm run storybook",
     "build": "npm run typecheck && npm run build:lib && npm run build:demo",
     "build:demo": "vite build",
     "build:lib": "tsup src/index.ts --format esm,cjs --dts --clean",

@@ -10,45 +10,86 @@ import {
 import { useCurrentNode } from "./use-node";
 import { useNode } from "./use-node";
 
-function useResolvedBoolean(id: string, key: string) {
+type NodeComputedState = {
+  disabled: boolean | undefined;
+  hidden: boolean | undefined;
+  forbidden: boolean | undefined;
+};
+
+const EMPTY_COMPUTED_STATE: NodeComputedState = {
+  disabled: undefined,
+  hidden: undefined,
+  forbidden: undefined,
+};
+
+function areStatesEqual(a: NodeComputedState, b: NodeComputedState): boolean {
+  return (
+    a.disabled === b.disabled &&
+    a.hidden === b.hidden &&
+    a.forbidden === b.forbidden
+  );
+}
+
+function useResolvedComputedState(id: string): NodeComputedState {
   const node = useNode(id);
   const { nodes, runtimeRoot } = useSelectorTree();
   const { value } = useSelectable();
-  const [resolvedValue, setResolvedValue] = useState<boolean | undefined>(
-    undefined,
-  );
+  const [computedState, setComputedState] =
+    useState<NodeComputedState>(EMPTY_COMPUTED_STATE);
 
   useEffect(() => {
     if (!node) {
-      setResolvedValue(undefined);
+      setComputedState((previous) =>
+        areStatesEqual(previous, EMPTY_COMPUTED_STATE)
+          ? previous
+          : EMPTY_COMPUTED_STATE,
+      );
       return;
     }
 
     let cancelled = false;
     const context = buildPluginContextForNode(node, nodes, runtimeRoot);
-    void doesAnyPredicateReturnTrue(node.props[key], context, {
-      traceScope: key,
-    }).then(
-      (nextValue) => {
-        if (!cancelled) {
-          setResolvedValue(nextValue);
-        }
-      },
-    );
+    void Promise.all([
+      doesAnyPredicateReturnTrue(node.props[Meta.DISABLED], context, {
+        traceScope: Meta.DISABLED,
+      }),
+      doesAnyPredicateReturnTrue(node.props[Meta.HIDDEN], context, {
+        traceScope: Meta.HIDDEN,
+      }),
+      doesAnyPredicateReturnTrue(node.props[Meta.FORBIDDEN], context, {
+        traceScope: Meta.FORBIDDEN,
+      }),
+    ]).then(([disabled, hidden, forbidden]) => {
+      if (cancelled) {
+        return;
+      }
+
+      const nextState: NodeComputedState = {
+        disabled,
+        hidden,
+        forbidden,
+      };
+
+      setComputedState((previous) =>
+        areStatesEqual(previous, nextState) ? previous : nextState,
+      );
+    });
 
     return () => {
       cancelled = true;
     };
-  }, [id, key, node, nodes, runtimeRoot, value]);
+  }, [id, node, nodes, runtimeRoot, value]);
 
-  return resolvedValue;
+  return computedState;
 }
 
 export function useNodeComputedState(id: string) {
+  const computedState = useResolvedComputedState(id);
+
   return {
-    disabled: useResolvedBoolean(id, Meta.DISABLED),
-    hidden: useResolvedBoolean(id, Meta.HIDDEN),
-    forbidden: useResolvedBoolean(id, Meta.FORBIDDEN),
+    disabled: computedState.disabled,
+    hidden: computedState.hidden,
+    forbidden: computedState.forbidden,
   };
 }
 

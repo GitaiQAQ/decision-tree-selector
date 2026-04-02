@@ -113,6 +113,7 @@
 
   .tree-node-button {
     @apply grid w-full gap-1 text-left;
+    @apply  cursor-pointer;
   }
 
   .tree-label {
