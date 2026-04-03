@@ -1,5 +1,11 @@
 export const storyMapping: Record<string, string> = {
-  "switchable.disabled.inventory-blocked":
+  "switchable.disabled.inventory-false-policy-false":
+    "plugins-switchable--switchable-from-deep-node",
+  "switchable.disabled.inventory-true-policy-false":
+    "plugins-switchable--switchable-from-deep-node",
+  "switchable.disabled.inventory-false-policy-true":
+    "plugins-switchable--switchable-from-deep-node",
+  "switchable.disabled.inventory-true-policy-true":
     "plugins-switchable--switchable-from-deep-node",
   "phase2.switchable.disabled.inventory-false-policy-false":
     "plugins-switchable--switchable-from-deep-node",
@@ -10,11 +16,11 @@ export const storyMapping: Record<string, string> = {
   "phase2.switchable.disabled.inventory-true-policy-true":
     "plugins-switchable--switchable-from-deep-node",
   "phase2.mutex.disabled.prev-visible-false-current-selected-false":
-    "plugins-switchable--switchable-from-deep-node",
+    "runtime-real-world-trees--child-visibility-mutex-behavior",
   "phase2.mutex.disabled.prev-visible-true-current-selected-false":
-    "plugins-switchable--switchable-from-deep-node",
+    "runtime-real-world-trees--child-visibility-mutex-behavior",
   "phase2.mutex.disabled.prev-visible-false-current-selected-true":
-    "plugins-switchable--switchable-from-deep-node",
+    "runtime-real-world-trees--child-visibility-mutex-behavior",
   "phase2.mutex.disabled.prev-visible-true-current-selected-true":
-    "plugins-switchable--switchable-from-deep-node",
+    "runtime-real-world-trees--child-visibility-mutex-behavior",
 };

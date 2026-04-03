@@ -81,6 +81,73 @@ describe("bootstrapFromDsl", () => {
     ).resolves.toBe(true);
   });
 
+  it("keeps an option panel visible only while selection stays under its parent branch", async () => {
+    const runtimeRoot = createRuntimeRootState("Export invoices");
+    const tree = dsl.group({}, [
+      dsl.node("Billing", {}, [
+        dsl.optionPanel("Billing Advanced Scopes", {}, [
+          createNode("Export invoices", {}),
+        ]),
+      ]),
+      dsl.node("Analytics", {}, [createNode("View dashboards", {})]),
+    ]);
+
+    const result = bootstrapFromDsl(tree, {}, runtimeRoot);
+    const panelNode = Object.values(result.nodes).find(
+      (node) => node.symbol === "Billing Advanced Scopes",
+    );
+
+    expect(panelNode).toBeDefined();
+
+    const panelContext = buildPluginContextForNode(
+      panelNode!,
+      result.nodes,
+      runtimeRoot,
+    );
+
+    await expect(
+      doesAnyPredicateReturnTrue(panelNode!.props[Meta.HIDDEN], panelContext),
+    ).resolves.toBe(false);
+
+    runtimeRoot.selection.value = "View dashboards";
+
+    await expect(
+      doesAnyPredicateReturnTrue(panelNode!.props[Meta.HIDDEN], panelContext),
+    ).resolves.toBe(true);
+  });
+
+  it("unlocks the next mutex option when the higher-priority sibling is hidden", async () => {
+    const runtimeRoot = createRuntimeRootState();
+    const tree = dsl.group({}, [
+      dsl.node("Consideration", { plugins: [childVisibilityMutex] }, [
+        createNode("Traffic", {
+          hidden: () => true,
+        }),
+        createNode("App Promotion", {}),
+      ]),
+    ]);
+
+    const result = bootstrapFromDsl(tree, {}, runtimeRoot);
+    const appPromotionNode = Object.values(result.nodes).find(
+      (node) => node.symbol === "App Promotion",
+    );
+
+    expect(appPromotionNode).toBeDefined();
+
+    const nodeContext = buildPluginContextForNode(
+      appPromotionNode!,
+      result.nodes,
+      runtimeRoot,
+    );
+
+    await expect(
+      doesAnyPredicateReturnTrue(
+        appPromotionNode!.props[Meta.DISABLED],
+        nodeContext,
+      ),
+    ).resolves.toBe(false);
+  });
+
   it("switches from deep node to nearest switchable ancestor", async () => {
     let selectedValue: string | undefined;
     const runtimeRoot: RuntimeRootState = {

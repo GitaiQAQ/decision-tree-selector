@@ -143,6 +143,12 @@ describe("phase1 primary gate", () => {
     expect(result.actualDisabled).toBe(result.expectedDisabled);
   });
 
+  it("maps every phase1 fixture to a storybook story", () => {
+    for (const fixture of phase1Fixtures) {
+      expect(storyMapping[fixture.caseId]).toBeTruthy();
+    }
+  });
+
   it("captures screenshot only when assertion fails", async () => {
     const capture = vi.fn(async () => {});
     const passingFixture = phase1Fixtures[0]!;

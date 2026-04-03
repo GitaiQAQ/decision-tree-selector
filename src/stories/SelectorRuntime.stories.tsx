@@ -7,6 +7,7 @@ import {
   useCurrentNodeId,
   useCurrentRadio,
   useNode,
+  useSelectable,
   type NodeConfig,
   type SelectorSymbol,
 } from "../index";
@@ -193,6 +194,88 @@ const permissionsTree = (() => {
   return tree;
 })();
 
+const panelScopeTree = (() => {
+  const tree = applyTreeVisuals(dsl.group(
+    {
+      renderLabel: "Billing scope panel",
+      renderDescription:
+        "Focused sample showing how optionPanel visibility follows the current selection scope.",
+    },
+    [
+      dsl.node(
+        "Billing",
+        {
+          renderLabel: "Billing",
+          renderDescription: "Stay in this branch to keep the advanced panel visible.",
+        },
+        [
+          dsl.node("Billing Custom Access", {
+            renderLabel: "Billing Custom Access",
+            renderDescription: "Granular billing permissions.",
+          }),
+          dsl.optionPanel(
+            "Billing Advanced Scopes",
+            {
+              renderLabel: "Billing Advanced Scopes",
+              renderDescription: "Visible only while the selected path remains under Billing.",
+            },
+            [
+              dsl.node("Export invoices", {
+                renderLabel: "Export invoices",
+              }),
+              dsl.node("Edit payment methods", {
+                renderLabel: "Edit payment methods",
+              }),
+            ],
+          ),
+        ],
+      ),
+      dsl.node(
+        "Analytics",
+        {
+          renderLabel: "Analytics",
+          renderDescription: "Switch here to leave the Billing scope.",
+        },
+        [
+          dsl.node("View dashboards", {
+            renderLabel: "View dashboards",
+          }),
+        ],
+      ),
+    ],
+  ));
+  return tree;
+})();
+
+function createChildVisibilityMutexTree(showPriorityOption: boolean) {
+  return applyTreeVisuals(dsl.group(
+    {
+      renderLabel: "Campaign fallback routing",
+      renderDescription:
+        "Focused sample showing how child-visibility mutex unlocks lower-priority options once the earlier sibling disappears.",
+    },
+    [
+      dsl.node("Routing policy", { renderLabel: "Routing policy" }, [
+        dsl.mutexGroup({}, [
+          dsl.optionMutex("Premium Campaign", {
+            renderLabel: "Premium Campaign",
+            renderDescription: "Highest-priority path. Hide it to unlock the fallback options.",
+            hidden: () => !showPriorityOption,
+          }),
+          dsl.optionMutex("Standard Campaign", {
+            renderLabel: "Standard Campaign",
+            renderDescription: "Becomes selectable when the premium option is no longer displayable.",
+          }),
+          dsl.optionMutex("Fallback Campaign", {
+            renderLabel: "Fallback Campaign",
+            renderDescription: "Last-priority backup branch.",
+          }),
+        ]),
+      ]),
+    ],
+  ));
+}
+
 type CustomItemProps = ComponentProps<
   NonNullable<NodeConfig["CustomItemRender"]>
 >;
@@ -357,6 +440,75 @@ function ControlledPermissionsStory() {
   );
 }
 
+function PanelScopeStoryPanel() {
+  const { value, setValue } = useSelectable();
+
+  return (
+    <Card>
+      <CardHeader>
+        <Badge variant="secondary" className="w-fit">
+          Scope controls
+        </Badge>
+        <CardTitle>{value ?? "Nothing selected"}</CardTitle>
+        <CardDescription>
+          Move between Billing and Analytics to see the Billing Advanced Scopes panel hide and reappear.
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="flex flex-wrap gap-2">
+        <Button size="sm" variant="outline" onClick={() => setValue("Export invoices", value)}>
+          Stay in Billing panel
+        </Button>
+        <Button
+          size="sm"
+          variant="outline"
+          onClick={() => setValue("Billing Custom Access", value)}
+        >
+          Billing root child
+        </Button>
+        <Button size="sm" variant="outline" onClick={() => setValue("View dashboards", value)}>
+          Leave for Analytics
+        </Button>
+      </CardContent>
+    </Card>
+  );
+}
+
+function ChildVisibilityMutexStory() {
+  const [showPriorityOption, setShowPriorityOption] = useState(true);
+
+  return (
+    <div className="grid gap-4">
+      <StoryIntroCard
+        badge="Mutex behavior"
+        title="Child-visibility mutex behavior"
+        description="Toggle the highest-priority option on and off to verify when lower-priority siblings become selectable."
+      >
+        <Button
+          size="sm"
+          variant={showPriorityOption ? "default" : "outline"}
+          onClick={() => setShowPriorityOption(true)}
+        >
+          Show Premium Campaign
+        </Button>
+        <Button
+          size="sm"
+          variant={!showPriorityOption ? "default" : "outline"}
+          onClick={() => setShowPriorityOption(false)}
+        >
+          Hide Premium Campaign
+        </Button>
+      </StoryIntroCard>
+
+      <SelectorStoryScene
+        tree={createChildVisibilityMutexTree(showPriorityOption)}
+        title="Child-visibility mutex end-to-end"
+        description="When the premium sibling is displayable, it blocks lower-priority siblings. Hiding it releases the next option."
+        autoSelectDefault={false}
+      />
+    </div>
+  );
+}
+
 const meta = {
   title: "Runtime/Real-World Trees",
   tags: ["autodocs"],
@@ -407,4 +559,36 @@ export const PermissionsRendererOverride: Story = {
       autoSelectDefault={false}
     />
   ),
+};
+
+export const PanelScopeExitReturn: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Focused optionPanel sample. The side panel jumps between a Billing-scoped selection and an Analytics selection so you can verify that the advanced panel only stays visible while the current path remains under Billing.",
+      },
+    },
+  },
+  render: () => (
+    <SelectorStoryScene
+      tree={panelScopeTree}
+      title="Option panel scope exit and return"
+      description="A focused runtime sample for optionPanel visibility when the user leaves and re-enters the parent branch."
+      defaultValue="Export invoices"
+      rightPanel={<PanelScopeStoryPanel />}
+    />
+  ),
+};
+
+export const ChildVisibilityMutexBehavior: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Focused child-visibility mutex sample. It visualizes the real tree behavior behind the phase2 mutex fixtures by toggling whether the highest-priority sibling is displayable.",
+      },
+    },
+  },
+  render: () => <ChildVisibilityMutexStory />,
 };

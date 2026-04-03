@@ -35,6 +35,13 @@ export { DefaultSelectionWrapper } from "./selector/components/DefaultSelectionW
 export { BasicTreeNode } from "./selector/presets/basic/BasicTreeNode";
 export { BasicTreeNodeGroup } from "./selector/presets/basic/BasicTreeNodeGroup";
 export { BasicTreeNodeWrapper } from "./selector/presets/basic/BasicTreeNodeWrapper";
+export { SpotlightTreeNode } from "./selector/presets/spotlight/SpotlightTreeNode";
+export { SpotlightTreeNodeGroup } from "./selector/presets/spotlight/SpotlightTreeNodeGroup";
+export { SpotlightTreeNodeWrapper } from "./selector/presets/spotlight/SpotlightTreeNodeWrapper";
+export { PortalSplitPresetFrame } from "./selector/presets/portal-split/PortalSplitPresetFrame";
+export { PortalSplitTreeNode } from "./selector/presets/portal-split/PortalSplitTreeNode";
+export { PortalSplitTreeNodeGroup } from "./selector/presets/portal-split/PortalSplitTreeNodeGroup";
+export { PortalSplitTreeNodeWrapper } from "./selector/presets/portal-split/PortalSplitTreeNodeWrapper";
 export { createDemoTree } from "./selector/demo/create-demo-tree";
 export {
   createSelectorDebugApi,

@@ -1,9 +1,36 @@
 [
   {
-    "caseId": "switchable.disabled.inventory-blocked",
+    "caseId": "switchable.disabled.inventory-false-policy-false",
+    "flags": {
+      "isInventoryBlocked": false,
+      "isPolicyBlocked": false
+    },
+    "constraints": ["target=Express"],
+    "expectedDisabled": false
+  },
+  {
+    "caseId": "switchable.disabled.inventory-true-policy-false",
     "flags": {
       "isInventoryBlocked": true,
       "isPolicyBlocked": false
+    },
+    "constraints": ["target=Express"],
+    "expectedDisabled": true
+  },
+  {
+    "caseId": "switchable.disabled.inventory-false-policy-true",
+    "flags": {
+      "isInventoryBlocked": false,
+      "isPolicyBlocked": true
+    },
+    "constraints": ["target=Express"],
+    "expectedDisabled": true
+  },
+  {
+    "caseId": "switchable.disabled.inventory-true-policy-true",
+    "flags": {
+      "isInventoryBlocked": true,
+      "isPolicyBlocked": true
     },
     "constraints": ["target=Express"],
     "expectedDisabled": true
